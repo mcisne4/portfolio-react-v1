@@ -1,10 +1,23 @@
 import React from 'react';
-// import './App.css';
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  // Route,
+  // Link
+} from "react-router-dom";
+import './App.scss';
+
+// === ROUTES ===
+import Root from "./routes/home/home";
 
 function App() {
   return (
-    <div className="App">
-    </div>
+    <BrowserRouter >
+      <Switch>
+        <Route exact path="/" component={ Root } />
+      </Switch>
+    </BrowserRouter>
   );
 }
 
