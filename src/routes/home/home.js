@@ -12,8 +12,8 @@ import Subtitle from "./components/subtitle/subtitle";
 export default function RouteRoot(){
   return (
     <div className="home">
+      <BackgroundCanvas />
       <div className="home-content">
-        <BackgroundCanvas />
         <Logo />
         <Subtitle />
         <Message />
