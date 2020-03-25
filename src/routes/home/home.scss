@@ -1,0 +1,83 @@
+body {
+  background-color: #121212;
+  color: #ddd;
+}
+
+.home {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem 2rem;
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // border: 1px solid green;
+
+    &-logo {
+      width: 22rem;
+    }
+  
+    &-subtitle {
+      color: #FFF;
+      font-family: 'Caveat Brush', cursive;
+      font-size: 3rem;
+      letter-spacing: 5px;
+      margin: .5rem auto 1rem auto;
+    }
+  
+    &-message {
+      font-size: 1.1rem;
+      line-height: 1.4;
+      color: #9A9A9A;
+      max-width: 20rem;
+      text-align: center;
+    }
+  }
+
+  &-routes {
+    // border: 1px solid blue;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 1rem 2rem;
+    // min-width: 22rem;
+
+    &-link {
+      text-decoration: none;
+      margin: 1rem;
+      border: 1px solid #aaff00;
+      color: #aaff00;
+      border-radius: .5rem;
+      text-align: center;
+      padding: .5rem 1rem;
+    }
+  }
+
+}
+
+
+#m1,
+#c1,
+#i1,
+#g1,
+#u1,
+#e1,
+#l1 {
+  fill: #aaff00;
+}
+
+#c2,
+#i2,
+#s1,
+#n1,
+#e2,
+#r1,
+#o1,
+#s2 {
+  fill: #05ff00;
+}

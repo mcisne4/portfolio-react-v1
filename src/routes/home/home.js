@@ -1,21 +1,29 @@
 import React from "react";
+import {
+  Link
+} from "react-router-dom";
+import "./home.scss";
 
 import BackgroundCanvas from "./components/background-canvas/BackgroundCanvas";
+import Logo from "./components/logo/logo";
+import Message from "./components/message/message";
+import Subtitle from "./components/subtitle/subtitle";
 
 export default function RouteRoot(){
   return (
     <div className="home">
-      <BackgroundCanvas />
-
       <div className="home-content">
-        <div className="home-message">
-          <h2>Hello There</h2>
-          <h4>I'm</h4>
-          <h1>Miguel Cisneros</h1>
-          <h4>I'm a</h4>
-          <h1>Web Developer</h1>
-          <h4>I build</h4>
-        </div>
+        <BackgroundCanvas />
+        <Logo />
+        <Subtitle />
+        <Message />
+      </div>
+
+      <div className="home-routes">
+        <Link className="home-routes-link" to="/">Projects</Link>
+        <Link className="home-routes-link" to="/">Code Snippets</Link>
+        <Link className="home-routes-link" to="/">About Me</Link>
+        <Link className="home-routes-link" to="/">Contact</Link>
       </div>
     </div>
   )

@@ -1,10 +1,10 @@
 import React from "react";
 
-import "./styles.scss";
+import "./BackgroundCanvas.scss";
 
 export default function BackgroundCanvas(){
   return (
-    <canvas className="background-canvas">
+    <canvas id="background-canvas">
       Background Canvas
     </canvas>
   )
