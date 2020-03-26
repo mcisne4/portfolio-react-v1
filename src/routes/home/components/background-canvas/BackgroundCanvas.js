@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import "./BackgroundCanvas.scss";
 import { AnimateCanvas } from "./animate-canvas";
 
