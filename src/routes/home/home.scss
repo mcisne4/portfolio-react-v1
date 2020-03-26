@@ -16,6 +16,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 19.25rem;
+    width: 22rem;
     // border: 1px solid green;
 
     &-logo {
@@ -43,13 +45,15 @@ body {
     // border: 1px solid blue;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     padding: 1rem 4rem;
-    min-width: 22rem;
+    height: 19.25rem;
+    width: 22rem;
+
 
     &-link {
       text-decoration: none;
-      margin: 1rem;
+      margin: .75rem 1rem;
       border: 1px solid #aaff00;
       color: #aaff00;
       border-radius: .5rem;

@@ -2,55 +2,92 @@ import { useEffect } from "react";
 
 // === Canvas Element ===
 let canvasElement;
+let context;
 
-// === Canvas Sizing ===
-let canvas = {};
+// === Canvas Temp Settings ===
+let requestID;
 
 // === Particle Settings ===
 let settings = {
-  particleCount: 2,
-  radiusMin: 5,
-  radiusMax: 10,
-  contentX: 360,
-  contentY: 154,
-  fillColors: [
-    "#0ff"
+  particleCount: 10,
+  particleLife: 2000,
+  particleLifeSpacing: 200,
+  particleOpacityFade: 200,
+  particleOpacitySpeed: 1,
+  radiusBase: 5,
+  radiusVariation: 5,
+  containerX: 360,
+  containerY: 154,
+  colors: [
+    "#000",
+    "#F00",
+    "#0F0",
+    "#00F",
+    "#FF0",
+    "#0FF",
+    "#F0F",
+    "#FFF"
   ]
 };
 
-
 // === Particle Arrays ===
 let particles = {
+  radius: [],
   x: [],
   y: [],
-  angle: [],
-  distance: [],
-  opacity: []
+  color: [],
+  life: [],
+  opacity: [],
 };
 
-// === RESET ===
-function reset(){
-  settings.distanceStart = 0;
-  settings.distanceFade = 0;
-  canvas = {
-    x1: 0,
-    y1: 0,
-    x2: 0,
-    y2: 0,
-    xx: 0,
-    yy: 0
-  };
-  particles = {
-    x: [],
-    y: [],
-    angle: [],
-    distance: [],
-    opacity: []
-  };
-    // window.removeEventListener()
+// === PARTICLE CONSTRUCTOR ===
+function createParticle(){
+  particles.radius.push(settings.radiusBase + Math.round(Math.random() * settings.radiusVariation));
+  particles.x.push(Math.round(Math.random() * window.innerWidth));
+  particles.y.push(Math.round(Math.random() * window.innerHeight));
+  particles.color.push(Math.round((settings.colors.length - 1) * Math.random()));
+  particles.life.push(settings.particleLife);
+  particles.opacity.push(0);
 }
 
+
+// === INITIAL PARTICLES ===
+function createInitialParticles(){
+  particles = {
+    radius: [],
+    x: [],
+    y: [],
+    color: [],
+    life: [],
+    opacity: []
+  };
+  createParticle();
+  particles.life[0] = 0;
+  while(particles.life[particles.life.length - 1] < settings.particleLife){
+    createParticle();
+    particles.life[particles.life.length - 1] = particles.life[particles.life.length - 2] + settings.particleLifeSpacing;
+  }
+}
+
+// initialize();
+// createInitialParticles();
+// console.log(particles);
+
+function initialize(){
+  // requestID = undefined;
+  canvasElement.width = window.innerWidth;
+  canvasElement.height = window.innerHeight;
+  createInitialParticles();
+}
+
+function drawParticles(context){
+  // 
+}
+
+// === RESET ===
+
 // === START ===
+/*
 function start(){
   canvas.x2 = window.innerWidth;
   canvas.y2 = window.innerHeight;
@@ -64,16 +101,19 @@ function start(){
 
   console.log(settings.distanceStart);
 }
-
+*/
 // === Create Particle ===
 
 
 export function AnimateCanvas(ref){
   useEffect( () => {
     canvasElement = ref.current;
-    let context = canvasElement.getContext("2d");
+    // eslint-disable-next-line
+    context = canvasElement.getContext("2d");
 
-    start();
+    initialize();
+
+    // start();
     /*
     let requestID;
     let y = 50;
