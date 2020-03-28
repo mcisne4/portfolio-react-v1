@@ -2,18 +2,26 @@ import { useEffect } from "react";
 
 // === Particle Settings ===
 let settings = {
-  particleCount: 10,
-  particleAge: 100,
+  particleCount: 100,
 
-  particleOpacityMax: 0.5,
-  particleOpacityGrowSpeed: 0.01,
-  particleOpacityAge: 20,
-  particleOpacityAgeSpeed: 0.1,
+  phase1: 90,
+  phase2: 120,
+  phase3: 30,
+  phase4: 10,
   
-  particleTranslateGrow: 1,
-  particleTranslateGrowVariation: 1,
-  particleTranslateAge: 4,
-  particleTranslateAgeVariation: 2,
+  amplitude1: 1,
+  amplitude2: 2,
+  amplitude3: 1,
+  // particleOpacityMax: 0.5,
+
+  // particleOpacityGrowSpeed: 0.01,
+  // particleOpacityAge: 20,
+  // particleOpacityAgeSpeed: 0.1,
+  
+  // particleTranslateGrow: 1,
+  // particleTranslateGrowVariation: 1,
+  // particleTranslateAge: 4,
+  // particleTranslateAgeVariation: 2,
   
   particleFilters: "blur(2px)",
   particleRadiusBase: 5,
@@ -40,6 +48,9 @@ export function AnimateCanvas(ref){
     let requestID;
     let contentArea = {};
     let opacityIncrement = settings.particleOpacityMax / settings.particleOpacityAge;
+    const maxAge = settings.phase1 + settings.phase2 + settings.phase3 + settings.phase4;
+
+    const phase1_ratio = 1 / settings.phase1;
   
     // --- Canvas Arrays ---
     let particle_x = [];
@@ -62,7 +73,7 @@ export function AnimateCanvas(ref){
       particle_directionX = [];
       particle_directionY = [];
 
-      const lifeIncrement = settings.particleAge / settings.particleCount;
+      // const ageIncrement = maxAge / settings.particleCount;
       for(let i=0; i<settings.particleCount; i++){
         particle_x.push(
           Math.round(Math.random() * window.innerWidth)
@@ -77,7 +88,7 @@ export function AnimateCanvas(ref){
           settings.colors[Math.round((settings.colors.length - 1) * Math.random())]
         );
         particle_opacity.push(0);
-        particle_age.push(Math.floor(lifeIncrement * i));
+        particle_age.push(Math.floor( (maxAge / settings.particleCount) * i));
         particle_directionX.push(Math.random() < 0.5 ? -1 : 1);
         particle_directionY.push(Math.random() < 0.5 ? -1 : 1);
       }
@@ -107,74 +118,72 @@ export function AnimateCanvas(ref){
       // */
     }
 
-    console.log((0.5 - 0.5) * 4);
+    // console.log((0.5 - 0.5) * 4);
 
     const updateParticles = () => {
       for(let i=0; i<particle_age.length; i++){
         // const rand1 = Math.random() < 0.5 ? -1 : 1;
         // const rand2 = Math.random() < 0.5 ? -1 : 1;
         // --- Particle Age ---
-        particle_age[i]--;
-        if(particle_age[i] < 0){
-          particle_age[i] = settings.particleAge;
+        particle_age[i]++;
+        if(particle_age[i] > maxAge){
+          particle_age[i] = 0;
           particle_x[i] = Math.round(Math.random() * window.innerWidth);
           particle_y[i] = Math.round(Math.random() * window.innerHeight);
           particle_radius[i] = settings.particleRadiusBase + Math.round( Math.random() * settings.particleRadiusVariation);
           particle_opacity[i] = 0;
         }
-        // --- Particle Coodinates ---
-        if(particle_opacity[i] < settings.particleOpacityAge){
-          // const xxx = Math.round((particle_age[i] / settings.particleAge - 0.5) * settings.particleTranslateGrow * particle_directionX[i]);
-          // console.log(
-          //   particle_age[i], "|",
-          //   // (particle_age[i] / settings.particleAge - 0.5), "|",
-          //   Math.round((particle_age[i] / settings.particleAge - 0.5) * settings.particleTranslateGrow), " x ",
-          //   particle_directionX[i], "=>",
-          //   xxx
-          //   // particle_age[i], settings.particleAge, "|", particle_age[i] / settings.particleAge
-          // );
-          particle_x[i] += Math.round((particle_age[i] / settings.particleAge - 0.5) * settings.particleTranslateGrow * particle_directionX[i]);
-          particle_y[i] += Math.round((particle_age[i] / settings.particleAge - 0.5) * settings.particleTranslateGrow * particle_directionY[i]);
-          // particle_x[i] += rand1 * (settings.particleTranslateGrow + Math.round(Math.random() * settings.particleTranslateGrowVariation));
-          // particle_y[i] += rand2 * (settings.particleTranslateGrow + Math.round(Math.random() * settings.particleTranslateGrowVariation));
-        } else {
-          particle_x[i] += Math.round((particle_age[i] / settings.particleAge - 0.5) * settings.particleTranslateAge * particle_directionX[i]);
-          particle_y[i] += Math.round((particle_age[i] / settings.particleAge - 0.5) * settings.particleTranslateAge * particle_directionY[i]);
-          // particle_x[i] += rand1 * (settings.particleTranslateAge + Math.round(Math.random() * settings.particleTranslateAgeVariation));
-          // particle_y[i] += rand2 * (settings.particleTranslateAge + Math.round(Math.random() * settings.particleTranslateAgeVariation));
+        // --- Phase 1 ---
+        if(particle_age[i] <= settings.phase1){
+          // console.log("Phase1");
+          // particle_x[i] += _translate(particle_directionX[i], settings.amplitude1, particle_age[i]);
+          particle_x[i] += Math.round((particle_age[i] / maxAge) * 0.1 * settings.phase1);
+          particle_y[i] += _translate(particle_directionY[i], settings.amplitude1, particle_age[i]);
+          // particle_x[i] = Math.round(particle_x[i] + particle_directionX[i] * settings.amplitude1 * Math.sin(2 * Math.PI * (particle_age[i] / maxAge)) + particle_directionX[i] * settings.amplitude1);
+          // particle_y[i] = Math.round(particle_y[i] + particle_directionY[i] * settings.amplitude1 * Math.sin(2 * Math.PI * (particle_age[i] / maxAge)) + particle_directionY[i] * settings.amplitude1);
+          particle_opacity[i] = particle_age[i] * phase1_ratio * 1;
+          particle_radius[i] += 0.1;
         }
-        // --- Particle Opacity ---
-        if(particle_age[i] < settings.particleOpacityAge){
-          particle_opacity[i] = settings.particleOpacityMax - (settings.particleOpacityAge - particle_age[i]) * settings.particleOpacityAgeSpeed;
-          // particle_opacity[i] -= settings.particleOpacityAgeSpeed;
-          if(particle_opacity[i] < 0){
-            particle_opacity[i] = 0;
-          }
+        else if(particle_age[i] > settings.phase1 && particle_age[i] <= (settings.phase2 + settings.phase1)){
+          // console.log("Phase 2");
+          // particle_x[i] += _translate(particle_directionX[i], settings.amplitude2, particle_age[i]);
+          particle_x[i] += Math.round((particle_age[i] / maxAge) * 0.2 * settings.phase2);
+          particle_y[i] += _translate(particle_directionY[i], settings.amplitude2, particle_age[i]);
+          // particle_x[i] = Math.round(particle_x[i] + particle_directionX[i] * settings.amplitude2 * Math.sin(2 * Math.PI * (particle_age[i] / maxAge)) + particle_directionX[i] * settings.amplitude2);
+          // particle_y[i] = Math.round(particle_y[i] + particle_directionY[i] * settings.amplitude2 * Math.sin(2 * Math.PI * (particle_age[i] / maxAge)) + particle_directionY[i] * settings.amplitude2);
+          // 
         }
-        // else if(particle_x[i] > contentArea.x1 && particle_x[i] < contentArea.x2 && particle_y[i] > contentArea.y1 && particle_y[i] < contentArea.y2){
-        //   particle_opacity[i] -= settings.particleOpacityAgeSpeed;
-        //   if(particle_opacity[i] < 0){
-        //     particle_opacity[i] = 0;
-        //   }
-        // }
+        else if(particle_age[i] > (settings.phase2 + settings.phase1) && particle_age[i] <= (settings.phase3 + settings.phase2 + settings.phase1)){
+          // particle_x[i] += _translate(particle_directionX[i], settings.amplitude3, particle_age[i]);
+          particle_x[i] += Math.round((particle_age[i] / maxAge) * 0.1 * settings.phase3);
+          particle_y[i] += _translate(particle_directionY[i], settings.amplitude3, particle_age[i]);
+          // console.log("Phase 3");
+          // particle_x[i] = Math.round(particle_x[i] + particle_directionX[i] * settings.amplitude3 * Math.sin(2 * Math.PI * (particle_age[i] / maxAge)) + particle_directionX[i] * settings.amplitude3);
+          // particle_y[i] = Math.round(particle_y[i] + particle_directionY[i] * settings.amplitude3 * Math.sin(2 * Math.PI * (particle_age[i] / maxAge)) + particle_directionY[i] * settings.amplitude3);
+          particle_opacity[i] = (settings.phase3 + settings.phase2 + settings.phase1 - particle_age[i]) / settings.phase3;
+        }
         else {
-          // particle_opacity[i] += settings.particleOpacityGrowSpeed;
-          particle_opacity[i] = (settings.particleAge - particle_age[i]) * settings.particleOpacityGrowSpeed;
-          if(particle_opacity[i] > settings.particleOpacityMax){
-            particle_opacity[i] = settings.particleOpacityMax;
-          }
+          // console.log("Phase 4");
+          particle_radius[i] += 1;
         }
       }
     }
 
+    const _translate = (direction, amplitude, currentAge) => {
+      let y = direction * amplitude * Math.sin((2 * Math.PI / maxAge) * currentAge + Math.PI / 2);
+      // console.log(y);
+      return Math.round(y);
+    }
+
     const animateParticles = () => {
       const i = 0;
-      setTimeout( () => {
-        console.log("Age:", particle_age[i], "Opacity:", particle_opacity[i], "X:", particle_x[i]);
-        updateParticles();
-        drawParticles();
-        requestID = requestAnimationFrame(animateParticles);
-      }, 300);
+      // setTimeout( () => {
+      //   // console.log("Age:", particle_age[i], "Opacity:", particle_opacity[i], "X:", particle_x[i]);
+      // }, 1);
+      // console.log("Age:", particle_age[i], "X:", particle_x[i]);
+      updateParticles();
+      drawParticles();
+      requestID = requestAnimationFrame(animateParticles);
     }
 
 
