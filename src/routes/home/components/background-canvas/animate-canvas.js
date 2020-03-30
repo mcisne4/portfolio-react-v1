@@ -4,10 +4,10 @@ import { useEffect } from "react";
 let settings = {
   particleCount: 100,
 
-  phase1: 90,
-  phase2: 120,
-  phase3: 30,
-  phase4: 10,
+  phase1: 200,
+  phase2: 600,
+  phase3: 200,
+  phase4: 100,
   
   amplitude1: 1,
   amplitude2: 2,
@@ -61,6 +61,9 @@ export function AnimateCanvas(ref){
     let particle_opacity = [];
     let particle_directionX = [];
     let particle_directionY = [];
+
+    let dy = [];
+    let dya = [];
   
     // --- Canvas Functions ---
     const createInitialParticles = () => {
@@ -72,6 +75,8 @@ export function AnimateCanvas(ref){
       particle_age = [];
       particle_directionX = [];
       particle_directionY = [];
+      dy = [];
+      dya = [];
 
       // const ageIncrement = maxAge / settings.particleCount;
       for(let i=0; i<settings.particleCount; i++){
@@ -91,6 +96,8 @@ export function AnimateCanvas(ref){
         particle_age.push(Math.floor( (maxAge / settings.particleCount) * i));
         particle_directionX.push(Math.random() < 0.5 ? -1 : 1);
         particle_directionY.push(Math.random() < 0.5 ? -1 : 1);
+        dy.push(0);
+        dya.push(-.01);
       }
   
     }
@@ -102,7 +109,8 @@ export function AnimateCanvas(ref){
       // context.filter = settings.particleFilters;
       for(let i=0; i<particle_age.length; i++){
         context.beginPath();
-        // context.shadowColor = particle_color[i];
+        context.shadowColor = particle_color[i];
+        context.shadowBlur = 10;
         context.globalAlpha = particle_opacity[i];
         context.fillStyle = particle_color[i];
         context.arc(
@@ -121,6 +129,9 @@ export function AnimateCanvas(ref){
     // console.log((0.5 - 0.5) * 4);
 
     const updateParticles = () => {
+      // console.log(dy[0]);
+      // console.log("Age Ratio:", particle_age[0] / maxAge);
+      // const mid
       for(let i=0; i<particle_age.length; i++){
         // const rand1 = Math.random() < 0.5 ? -1 : 1;
         // const rand2 = Math.random() < 0.5 ? -1 : 1;
@@ -133,37 +144,23 @@ export function AnimateCanvas(ref){
           particle_radius[i] = settings.particleRadiusBase + Math.round( Math.random() * settings.particleRadiusVariation);
           particle_opacity[i] = 0;
         }
+        // --- X ---
+        particle_x[i] += particle_directionX[i] * (particle_age[i] / maxAge) * .5;
+        const ss = particle_age[i] / maxAge;
+        const sucks = particle_directionY[i] * 0.1 * Math.sin(2 * Math.PI * ss);
+        particle_y[i] += sucks;
+
         // --- Phase 1 ---
         if(particle_age[i] <= settings.phase1){
-          // console.log("Phase1");
-          // particle_x[i] += _translate(particle_directionX[i], settings.amplitude1, particle_age[i]);
-          particle_x[i] += Math.round((particle_age[i] / maxAge) * 0.1 * settings.phase1);
-          particle_y[i] += _translate(particle_directionY[i], settings.amplitude1, particle_age[i]);
-          // particle_x[i] = Math.round(particle_x[i] + particle_directionX[i] * settings.amplitude1 * Math.sin(2 * Math.PI * (particle_age[i] / maxAge)) + particle_directionX[i] * settings.amplitude1);
-          // particle_y[i] = Math.round(particle_y[i] + particle_directionY[i] * settings.amplitude1 * Math.sin(2 * Math.PI * (particle_age[i] / maxAge)) + particle_directionY[i] * settings.amplitude1);
           particle_opacity[i] = particle_age[i] * phase1_ratio * 1;
-          particle_radius[i] += 0.1;
+          particle_radius[i] += 0.01;
         }
         else if(particle_age[i] > settings.phase1 && particle_age[i] <= (settings.phase2 + settings.phase1)){
-          // console.log("Phase 2");
-          // particle_x[i] += _translate(particle_directionX[i], settings.amplitude2, particle_age[i]);
-          particle_x[i] += Math.round((particle_age[i] / maxAge) * 0.2 * settings.phase2);
-          particle_y[i] += _translate(particle_directionY[i], settings.amplitude2, particle_age[i]);
-          // particle_x[i] = Math.round(particle_x[i] + particle_directionX[i] * settings.amplitude2 * Math.sin(2 * Math.PI * (particle_age[i] / maxAge)) + particle_directionX[i] * settings.amplitude2);
-          // particle_y[i] = Math.round(particle_y[i] + particle_directionY[i] * settings.amplitude2 * Math.sin(2 * Math.PI * (particle_age[i] / maxAge)) + particle_directionY[i] * settings.amplitude2);
-          // 
         }
         else if(particle_age[i] > (settings.phase2 + settings.phase1) && particle_age[i] <= (settings.phase3 + settings.phase2 + settings.phase1)){
-          // particle_x[i] += _translate(particle_directionX[i], settings.amplitude3, particle_age[i]);
-          particle_x[i] += Math.round((particle_age[i] / maxAge) * 0.1 * settings.phase3);
-          particle_y[i] += _translate(particle_directionY[i], settings.amplitude3, particle_age[i]);
-          // console.log("Phase 3");
-          // particle_x[i] = Math.round(particle_x[i] + particle_directionX[i] * settings.amplitude3 * Math.sin(2 * Math.PI * (particle_age[i] / maxAge)) + particle_directionX[i] * settings.amplitude3);
-          // particle_y[i] = Math.round(particle_y[i] + particle_directionY[i] * settings.amplitude3 * Math.sin(2 * Math.PI * (particle_age[i] / maxAge)) + particle_directionY[i] * settings.amplitude3);
           particle_opacity[i] = (settings.phase3 + settings.phase2 + settings.phase1 - particle_age[i]) / settings.phase3;
         }
         else {
-          // console.log("Phase 4");
           particle_radius[i] += 1;
         }
       }
