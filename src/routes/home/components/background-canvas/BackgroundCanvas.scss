@@ -3,3 +3,13 @@
   position: fixed;
   z-index: -10;
 }
+
+#tempRem {
+  box-sizing: border-box;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 22rem;
+  height: 19.25rem;
+}
