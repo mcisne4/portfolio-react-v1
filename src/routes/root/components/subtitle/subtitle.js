@@ -11,7 +11,7 @@ const sequence = [
     scale: [0, 1],
     duration: 100,
     delay: anime.stagger(50, { from: "center"}),
-    timelineOffset: "+=9700"
+    timelineOffset: 9500
   },
   {
     targets: ".root-content-subtitle",

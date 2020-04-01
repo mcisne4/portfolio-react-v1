@@ -24,12 +24,17 @@ export default function Routes(){
     });
   });
 
+  const actionless = (e) => {
+    e.preventDefault();
+    return false;
+  }
+
   return (
   <div className="root-routes">
-    <Link className="root-routes-link" to="/">Projects</Link>
-    <Link className="root-routes-link" to="/">Code Snippets</Link>
-    <Link className="root-routes-link" to="/">About Me</Link>
-    <Link className="root-routes-link" to="/">Contact</Link>
+    <Link className="root-routes-link" onClick={actionless}>Projects</Link>
+    <Link className="root-routes-link" onClick={actionless}>Code Snippets</Link>
+    <Link className="root-routes-link" onClick={actionless}>About Me</Link>
+    <Link className="root-routes-link" onClick={actionless}>Contact</Link>
   </div>
 )
 }
