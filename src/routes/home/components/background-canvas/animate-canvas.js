@@ -37,6 +37,12 @@ export function AnimateCanvas(ref){
   
     // --- Start ---
     initialize();
+
+    // --- Cleanup ---
+    return () => {
+      window.cancelAnimationFrame(requestID);
+      window.removeEventListener("resize", restartAnimation);
+    }
   });
 }
 
