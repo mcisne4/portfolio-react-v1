@@ -6,18 +6,24 @@ export let pSettings = {
   phaseCD: 300,
   phaseDE: 100,
 
-  dx: 0.1,
+  dxSlow: 0.1,
+  dxFast: 0.2,
+
+  yAmplitude: 0.1,
+
+  opacityMax: .8,
+  opacityRate: 0.005,
 
 
   filters: "blur(2px)",
   radiusBase: 5,
-  radiusVariation: 5,
+  radiusVariation: 4,
   radiusMaxGrow: 0.1,
   colors: [
     "#aaff00",
     "#05ff00"
   ],
-  shadowBlur: 10,
+  shadowBlur: 17,
 };
 
 export let cSettings = {
