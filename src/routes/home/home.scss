@@ -18,7 +18,6 @@ body {
     align-items: center;
     height: 19.25rem;
     width: 22rem;
-    // border: 1px solid green;
 
     &-logo {
       width: 22rem;
@@ -42,7 +41,6 @@ body {
   }
 
   &-routes {
-    // border: 1px solid blue;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -56,9 +54,19 @@ body {
       margin: .75rem 1rem;
       border: 1px solid #aaff00;
       color: #aaff00;
+      background-color: #121212;
       border-radius: .5rem;
       text-align: center;
       padding: .5rem 1rem;
+      box-shadow: 0 0 5px rgba($color: #aaff00, $alpha: 0.3);
+      
+      &:hover {
+        background-color: #131d00;
+        background-color: #aaff00;
+        color: #121212;
+        font-weight: 600;
+        box-shadow: 0 0 20px rgba($color: #aaff00, $alpha: 0.5);
+      }
     }
   }
 
