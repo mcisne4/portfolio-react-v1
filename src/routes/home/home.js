@@ -20,10 +20,10 @@ export default function RouteRoot(){
       </div>
 
       <div className="home-routes">
-        <Link className="home-routes-link" to="/">Projects</Link>
-        <Link className="home-routes-link" to="/">Code Snippets</Link>
-        <Link className="home-routes-link" to="/">About Me</Link>
-        <Link className="home-routes-link" to="/">Contact</Link>
+        <Link className="home-routes-link" to="/projects">Projects</Link>
+        <Link className="home-routes-link" to="/snippets">Code Snippets</Link>
+        <Link className="home-routes-link" to="/about">About Me</Link>
+        <Link className="home-routes-link" to="/contact">Contact</Link>
       </div>
     </div>
   )

@@ -31,10 +31,10 @@ export default function Routes(){
 
   return (
   <div className="root-routes">
-    <Link className="root-routes-link" onClick={actionless}>Projects</Link>
-    <Link className="root-routes-link" onClick={actionless}>Code Snippets</Link>
-    <Link className="root-routes-link" onClick={actionless}>About Me</Link>
-    <Link className="root-routes-link" onClick={actionless}>Contact</Link>
+    <Link className="root-routes-link" onClick={actionless} to="/home">Projects</Link>
+    <Link className="root-routes-link" onClick={actionless} to="/home">Code Snippets</Link>
+    <Link className="root-routes-link" onClick={actionless} to="/home">About Me</Link>
+    <Link className="root-routes-link" onClick={actionless} to="/home">Contact</Link>
   </div>
 )
 }
