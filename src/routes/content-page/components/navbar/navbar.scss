@@ -1,4 +1,7 @@
 $min-width: 700px;
+$max-width: 1200px;
+$width-tablet: 600px;
+$width-desktop: 900px;
 
 .nav {
 
@@ -7,14 +10,17 @@ $min-width: 700px;
   padding: .25rem 1rem;
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
+  // left: 0;
+  // right: 0;
+  width: 100%;
+  min-width: $min-width;
+  z-index: 10;
 
   &-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: $min-width;
+    max-width: $max-width;
     margin: 0 auto;
   }
 
@@ -23,6 +29,7 @@ $min-width: 700px;
   }
 
   &-btn {
+    // display: none;
     border: 1px solid #ccc;
     background-color: transparent;
     height: 2rem;
@@ -48,18 +55,42 @@ $min-width: 700px;
   }
 
   &-links {
-    display: flex;
-    justify-content: space-between;
     // border: 1px solid red;
-    width: 25rem;
+    display: block;
+    position: fixed;
+    top: 3rem;
+    right: 0;
+  }
 
-    &-link {
-      text-decoration: none;
-      color: #ccc;
+}
 
-      &:hover {
-        color: #fff;
-      }
+@media (min-width: $width-tablet){
+  .nav {
+    background-color: blue;
+
+    &-btn {
+      display: none;
     }
+
+    &-links {
+      display: flex;
+      flex-grow: 1;
+      justify-content: space-between;
+      border: 1px solid red;
+      max-width: 25rem;
+      position: initial;
+  
+      &-item {
+        // border: 1px solid green;
+      }
+      &-link {
+        text-decoration: none;
+        color: #ccc;
+  
+        &:hover {
+          color: #fff;
+        }
+      }
+    }  
   }
 }

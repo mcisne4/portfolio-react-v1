@@ -15,11 +15,26 @@ export default function Navbar(){
         <NavButton />
 
         <div className="nav-links">
-          <Link className="nav-links-link" to="/home">Home</Link>
-          <Link className="nav-links-link" to="/projects">Projects</Link>
-          <Link className="nav-links-link" to="/snippets">Code Snippets</Link>
-          <Link className="nav-links-link" to="/about">About</Link>
-          <Link className="nav-links-link" to="/contact">Contact</Link>
+          <div className="nav-links-item">
+            <Link className="nav-links-link" to="/home">Home</Link>
+            <hr></hr>
+          </div>
+          <div className="nav-links-item">
+            <Link className="nav-links-link" to="/projects">Projects</Link>
+            <hr></hr>
+          </div>
+          <div className="nav-links-item">
+            <Link className="nav-links-link" to="/snippets">Code Snippets</Link>
+            <hr></hr>
+          </div>
+          <div className="nav-links-item">
+            <Link className="nav-links-link" to="/about">About</Link>
+            <hr></hr>
+          </div>
+          <div className="nav-links-item">
+            <Link className="nav-links-link" to="/contact">Contact</Link>
+            <hr></hr>
+          </div>
         </div>
       </div>
     </nav>
