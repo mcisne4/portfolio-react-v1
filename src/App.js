@@ -11,7 +11,7 @@ import './App.scss';
 // === ROUTES ===
 import Root from "./routes/root/root";
 import Home from "./routes/home/home";
-import ContentPage from "./routes/content-page/content-page";
+import ContentPage from "./content-page/content-page";
 
 function App() {
   return (
