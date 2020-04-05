@@ -32,6 +32,7 @@ $page-padding: 2rem;
 
   &-logo {
     height: 2.5rem;
+    margin-right: 2rem;
 
     & .colorA {
       fill: #aaff00;
@@ -44,11 +45,13 @@ $page-padding: 2rem;
   &-btn {
     display: none;
     width: 2.5rem;
-    height: 2.1rem;
+    height: 2.2rem;
     background-color: transparent;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 0 2px #ccc;
+    position: relative;
+    top: 0.2rem;
 
     &-lines {
       stroke: #ccc;
@@ -84,7 +87,7 @@ $page-padding: 2rem;
         border-bottom: 5px solid #fff;
         border-top: 5px solid $nav-bgColor;
         color: #fff;
-        text-shadow: 0 0 2px #fff;
+        text-shadow: 0 0 1px #fff;
       }
 
       &-active {
@@ -96,11 +99,52 @@ $page-padding: 2rem;
           border-bottom: 5px solid #aaff00;
           border-top: 5px solid $nav-bgColor;
           color: #aaff00;
-          text-shadow: 0 0 1px #aaff00;
+          text-shadow: none;
+          cursor: default;
         }
       }
     }
   }
+}
 
+@media (max-width: 42rem){
+  .nav {
+    &-btn {
+      display: block;
+    }
+
+    &-links {
+      display: none;
+      position: fixed;
+      right: 0;
+      top: 3rem;
+
+      &-link {
+        background-color: $nav-bgColor;
+        border: 1px solid #555;
+        border-top: none;
+        justify-content: center;
+        padding: 0 4rem;
+
+        &:first-child {
+          border-top: 1px solid #555;
+          &:hover {
+            border-top: 1px solid #555;
+          }
+        }
+
+        &:hover {
+          border: 1px solid #555;
+          border-top: none;
+          background-color: lighten($color: $nav-bgColor, $amount: 20);
+        }
+
+        &-active {
+          border: 1px solid #555;
+          border-top: none;
+        }
+      }
+    }
+  }
 }
 
